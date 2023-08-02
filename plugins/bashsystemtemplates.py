@@ -1,5 +1,6 @@
 import os
 import sys
+from os.path import abspath
 
 from lowkit.utils import _delete_dir, _copy_dir
 from lowkit.functions.helpers import dl_zip, unzip
@@ -13,12 +14,12 @@ def process_gh_link(url, newname):
         unzipped_dir = storage_dir + "unzipped/"
         temporary_dir = ".tmp/temporary/" + filename
         
-        dl_zip(url, filename + ".zip", dl_dir)
-        unzip(dl_dir + filename + ".zip", unzipped_dir)
+        #dl_zip(url, filename + ".zip", dl_dir)
+        #unzip(dl_dir + filename + ".zip", unzipped_dir)
         _copy_dir(unzipped_dir + filename, temporary_dir)
-        modify_repo(os.path.abspath(temporary_dir), "factory", newname)
-        _copy_dir(temporary_dir, newname)
-        _delete_dir(os.path.abspath(temporary_dir))
+        modify_repo(abspath(temporary_dir), "factory", newname)
+        _copy_dir(abspath(temporary_dir), abspath(newname))
+        #_delete_dir(os.path.abspath(temporary_dir))
 
 class Plugin:
     def process(self, data):

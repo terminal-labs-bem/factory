@@ -1,1 +1,3 @@
-factory plugins useplugin -p bashsystemtemplates -c listtemplates -n factory0
+factory plugins useplugin -p bashsystemtemplates -c listtemplates
+factory plugins useplugin -p bashsystemtemplates -c updateproject -n destination:space
+factory plugins useplugin -p bashsystemtemplates -c deploytemplate -n destination:space,speed:fast
