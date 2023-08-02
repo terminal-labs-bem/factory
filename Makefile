@@ -32,3 +32,14 @@ psf: INTERNALUSER=$(SUDO_USER)
 psf: PLUGIN="simple"
 psf: download_bash_environment_manager
 	$(call kickoff)
+
+vagrant.psf: CONFIGURATION="default"
+vagrant.psf: HOSTTYPE="vagrant"
+vagrant.psf: INTERNALUSER="vagrant"
+vagrant.psf: PLUGIN="standard"
+vagrant.psf: download_bash_environment_manager
+	@if test ! -f "Vagrantfile";then \
+		wget https://raw.githubusercontent.com/terminal-labs/bash-environment-shelf/master/vagrantfiles/Vagrantfile; \
+		chown $(SUDO_USER) Vagrantfile; \
+	fi
+	$(call kickoff)
