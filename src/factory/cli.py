@@ -92,12 +92,16 @@ def listplugins_command():
 
 @click.option('-p', '--plugin', 'plugin')
 @click.option('-c', '--command', 'command')
-@click.option('-n', '--name', 'name')
+@click.option('-d', '--data', 'data')
 @plugins_group.command(name="useplugin")
-def usetplugins_command(plugin, command, name):
-    setup_workingset()
+def usetplugins_command(plugin, command, data):
+    optsdict = {}
+    opts = data.split(",")
+    for opt in opts:
+        pair = opt.split(":")
+        optsdict[pair[0]] = pair[1]
     plugins = ComplexPlugins(plugin)
-    plugins.run({"cmd": command, "name": name})
+    plugins.run({"cmd": command, "name": optsdict['destination']})
 
 from lowkit.utils import _copy_dir
 from lowkit.functions.helpers import modify_repo
