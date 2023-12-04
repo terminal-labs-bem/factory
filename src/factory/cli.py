@@ -110,8 +110,8 @@ from lowkit.functions.helpers import modify_repo
 @builtin_group.command("selfreplicate")
 def builtin_selfreplicate_cmd(name):
     newname = name
-    url = "https://github.com/terminal-labs/factory_pilot/archive/refs/heads/main.zip"
-    filename = "factory_pilot-main"
+    url = "https://github.com/terminal-labs/kit_factory_pilot/archive/refs/heads/main.zip"
+    filename = "kit_factory_pilot-main"
     storage_dir = ".tmp/storage/"
     dl_dir = storage_dir + "download/"
     unzipped_dir = storage_dir + "unzipped/"
