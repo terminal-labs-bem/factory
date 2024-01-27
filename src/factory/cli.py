@@ -106,24 +106,23 @@ def usetplugins_command(plugin, command, data):
 from lowkit.utils import _copy_dir
 from lowkit.functions.helpers import modify_repo
 
-@click.option('-n', '--name', 'name')
-@builtin_group.command("selfreplicate")
-def builtin_selfreplicate_cmd(name):
-    newname = name
-    url = "https://github.com/terminal-labs/kit_factory_pilot/archive/refs/heads/main.zip"
-    filename = "kit_factory_pilot-main"
-    storage_dir = ".tmp/storage/"
-    dl_dir = storage_dir + "download/"
-    unzipped_dir = storage_dir + "unzipped/"
-    temporary_dir = ".tmp/temporary/" + filename
-    
-    dl_zip(url, filename + ".zip", dl_dir)
-    unzip(dl_dir + filename + ".zip", unzipped_dir)
-    _copy_dir(unzipped_dir + filename, temporary_dir)
-    modify_repo(os.path.abspath(temporary_dir), "factory", newname)
-    _copy_dir(temporary_dir, newname)
-    _delete_dir(os.path.abspath(temporary_dir))
+@builtin_group.command("listprojects")
+def builtin_listprojects_cmd():
+	projects = ["simple","standard","advanced "]
+	for project in projects:
+		print(project)
 
+@click.option('-p', '--project', 'project')
+@click.option('-n', '--name', 'name')
+@builtin_group.command("initproject")
+def builtin_initproject_cmd(project, name):
+	print(name)
+
+@click.option('-p', '--project', 'project')
+@click.option('-n', '--name', 'name')
+@builtin_group.command("updateproject")
+def builtin_updateproject_cmd(project, name):
+	print(name)
 
 cli.add_command(builtin_group)
 cli.add_command(plugins_group)
