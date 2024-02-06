@@ -10,8 +10,10 @@ import base64
 import uuid
 from pathlib import Path
 
+
 def test():
     return getconfig()
+
 
 def remove(path):
     if os.path.exists(path):
@@ -20,18 +22,20 @@ def remove(path):
         if os.path.isdir(path):
             shutil.rmtree(path)
 
+
 def create_dirs(dirs):
     for dir in dirs:
         if not os.path.exists(dir):
             os.mkdir(dir)
 
+
 def init_runner_env():
     create_dirs(tmp_dirs)
-    dir = '.tmp/runners/'
+    dir = ".tmp/runners/"
     if not os.path.exists(dir):
         os.mkdir(dir)
 
-    dir = '.tmp/runners/runs'
+    dir = ".tmp/runners/runs"
     if not os.path.exists(dir):
         os.mkdir(dir)
 
@@ -292,7 +296,9 @@ def print_kv_pairs(dic):
 def list_files(path):
     assert isinstance(path, str) is True
     path = os.path.abspath(path)
-    return [name for name in os.listdir(path) if os.path.isfile(os.path.join(path, name))]  # noqa: E501
+    return [
+        name for name in os.listdir(path) if os.path.isfile(os.path.join(path, name))
+    ]  # noqa: E501
 
 
 def list_file_paths(path):
@@ -338,28 +344,29 @@ def call_local_shell(command):
     return result
 
 
-def prettyprintdict(value, htchar='\t', lfchar='\n', indent=0):
+def prettyprintdict(value, htchar="\t", lfchar="\n", indent=0):
     nlch = lfchar + htchar * (indent + 1)
     if type(value) is dict:
         items = [
-            nlch + repr(key) + ': ' + prettyprintdict(value[key], htchar, lfchar, indent + 1)
+            nlch
+            + repr(key)
+            + ": "
+            + prettyprintdict(value[key], htchar, lfchar, indent + 1)
             for key in value
         ]
         items = sorted(items)
-        return '{%s}' % (','.join(items) + lfchar + htchar * indent).replace("'","\"")
+        return "{%s}" % (",".join(items) + lfchar + htchar * indent).replace("'", '"')
     elif type(value) is list:
         items = [
-            nlch + prettyprintdict(item, htchar, lfchar, indent + 1)
-            for item in value
+            nlch + prettyprintdict(item, htchar, lfchar, indent + 1) for item in value
         ]
         items = sorted(items)
-        return '[%s]' % (','.join(items) + lfchar + htchar * indent).replace("'","\"")
+        return "[%s]" % (",".join(items) + lfchar + htchar * indent).replace("'", '"')
     elif type(value) is tuple:
         items = [
-            nlch + prettyprintdict(item, htchar, lfchar, indent + 1)
-            for item in value
+            nlch + prettyprintdict(item, htchar, lfchar, indent + 1) for item in value
         ]
         items = sorted(items)
-        return '(%s)' % (','.join(items) + lfchar + htchar * indent).replace("'","\"")
+        return "(%s)" % (",".join(items) + lfchar + htchar * indent).replace("'", '"')
     else:
-        return repr(value).replace("'","\"")
+        return repr(value).replace("'", '"')

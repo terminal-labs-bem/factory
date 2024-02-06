@@ -13,14 +13,17 @@ from os.path import isdir, dirname, realpath, abspath, join, exists
 from zipfile import ZipFile
 from configparser import ConfigParser
 
+
 def dl_zip(url, name, workingdir):
     if not exists(workingdir + name):
         with urlopen(url) as response, open(workingdir + name, "wb") as out_file:
             shutil.copyfileobj(response, out_file)
 
+
 def unzip(source, extract):
     with ZipFile(source) as zf:
         zf.extractall(path=extract)
+
 
 def modify_repo(path, oldname, newname):
     last_cwd = os.getcwd()
@@ -60,7 +63,7 @@ def modify_repo(path, oldname, newname):
 
     print("renaming dirs")
     for dir in abs_dirs:
-        if dir in  abs_renamedirs:
+        if dir in abs_renamedirs:
             print("renaming dirs --", dir, os.path.dirname(dir) + "/" + newname)
             _rename_dir(dir, os.path.dirname(dir) + "/" + newname)
 
@@ -68,8 +71,8 @@ def modify_repo(path, oldname, newname):
 
     edit_directives = []
     for f in abs_editlines:
-        edit_directives.append([f[0], [f[1],f[2]]])
-    
+        edit_directives.append([f[0], [f[1], f[2]]])
+
     files = []
     groups = {}
     for edit_directive in edit_directives:
@@ -84,8 +87,6 @@ def modify_repo(path, oldname, newname):
         print("editing files ---", key)
         _replace_many_lines(key, groups[key])
 
-
     os.chdir(last_cwd)
     # toml_string = toml.dumps(toml_dict)
     # print(toml_string)
-
