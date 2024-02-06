@@ -19,13 +19,13 @@ def cli(ctx):
     init()
 
 
-@click.group(name="builtin")
-def builtin_group():
-    pass
-
-
 @click.group(name="plugins")
 def plugins_group():
+    pass
+    
+
+@click.group(name="builtin")
+def builtin_group():
     pass
 
 
