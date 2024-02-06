@@ -14,8 +14,10 @@ from zipfile import ZipFile
 from configparser import ConfigParser
 
 from lowkit.utils import _delete_dir, _copy_dir
-from lowkit.initialization.workingset import setup_workingset
-from lowkit.functions.helpers import dl_zip, unzip
+
+from factory.initialization.workingset import setup_workingset
+from factory.initialization.helpers import dl_zip, unzip
+
 
 def find_plugins(path):
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
@@ -103,9 +105,6 @@ def usetplugins_command(plugin, command, data):
     plugins = ComplexPlugins(plugin)
     plugins.run({"cmd": command, "name": optsdict['destination']})
 
-from lowkit.utils import _copy_dir
-from lowkit.functions.helpers import modify_repo
-
 @builtin_group.command("listprojects")
 def builtin_listprojects_cmd():
 	projects = ["simple","standard","advanced "]
@@ -116,7 +115,13 @@ def builtin_listprojects_cmd():
 @click.option('-n', '--name', 'name')
 @builtin_group.command("initproject")
 def builtin_initproject_cmd(project, name):
+	import urllib.request
+	urllib.request.urlretrieve("https://github.com/tlbem/nib_simple/archive/refs/heads/main.zip", ".tmp/storage/download/main.zip")
+	import zipfile
+	with zipfile.ZipFile(".tmp/storage/download/main.zip", 'r') as zip_ref:
+		zip_ref.extractall(".tmp/storage/unzipped")
 	print(name)
+	modify_repo("/home/user/Desktop/test/.tmp/storage/unzipped/nib_simple-main", "simplenib", "lxc")
 
 @click.option('-p', '--project', 'project')
 @click.option('-n', '--name', 'name')
