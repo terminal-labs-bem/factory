@@ -1,5 +1,9 @@
+import urllib.request
+import zipfile
+
 import requests
 import bs4 as bs
+
 
 from . initialization.helpers import modify_repo
 
@@ -43,19 +47,16 @@ def list_projects():
     return repo_names
 
 
-def init_project():
-    import urllib.request
-
+def init_project(cwd, project, name):
     urllib.request.urlretrieve(
-        "https://github.com/tlbem/nib_simple/archive/refs/heads/main.zip",
-        ".tmp/storage/download/main.zip",
+        "https://github.com/terminal-labs-bem/" + project + "/archive/refs/heads/main.zip",
+        ".tmp/storage/download/" + project + ".zip",
     )
-    import zipfile
 
-    with zipfile.ZipFile(".tmp/storage/download/main.zip", "r") as zip_ref:
+    with zipfile.ZipFile(".tmp/storage/download/" + project + ".zip", "r") as zip_ref:
         zip_ref.extractall(".tmp/storage/unzipped")
     modify_repo(
-        "/home/user/Desktop/test/.tmp/storage/unzipped/nib_simple-main",
+        cwd + "/.tmp/storage/unzipped/" + project + "-main",
         "simplenib",
         "lxc",
     )

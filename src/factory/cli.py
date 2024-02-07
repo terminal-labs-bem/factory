@@ -1,3 +1,5 @@
+import os
+
 from . import settings
 from . import app
 
@@ -53,7 +55,8 @@ def builtin_listprojects_cmd():
 @click.option("-n", "--name", "name")
 @builtin_group.command("initproject")
 def builtin_initproject_cmd(project, name):
-    app.init_project()
+    cwd = os.getcwd()
+    app.init_project(cwd, project, name)
 
 
 @click.option("-p", "--project", "project")

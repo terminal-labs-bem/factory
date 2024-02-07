@@ -37,6 +37,7 @@ def modify_repo(path, oldname, newname):
         toml_dict = toml.load(toml_file)
 
     rules = toml_dict
+    print(rules)
     renamedirs = rules["renamedirs"]
     editlines = rules["editlines"]
 
