@@ -1,6 +1,7 @@
 import requests
 import bs4 as bs
 
+from . initialization.helpers import modify_repo
 
 def main():
     pass
@@ -53,7 +54,6 @@ def init_project():
 
     with zipfile.ZipFile(".tmp/storage/download/main.zip", "r") as zip_ref:
         zip_ref.extractall(".tmp/storage/unzipped")
-    print(name)
     modify_repo(
         "/home/user/Desktop/test/.tmp/storage/unzipped/nib_simple-main",
         "simplenib",
