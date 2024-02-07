@@ -9,13 +9,13 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v2
     - name: Run bash-environment-manager      
       run: |
         mkdir -p .repo
-        curl https://raw.githubusercontent.com/terminal-labs/bash-environment-shelf/master/prepscripts/mock_vagrant.sh --output .repo/mock_vagrant.sh
+        curl https://raw.githubusercontent.com/tlbem/bash-environment-manager-shelf/main/prepscripts/mock_vagrant.sh --output .repo/mock_vagrant.sh
         sudo bash .repo/mock_vagrant.sh
-        cd /vagrant; sudo su vagrant -c "sudo make psf"
+        cd /vagrant; sudo su vagrant -c "sudo make venv.python"
