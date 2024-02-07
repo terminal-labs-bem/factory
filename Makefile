@@ -31,14 +31,14 @@ download_bash_environment_manager:
   		sudo su -m $(SUDO_USER) -c "cp -r .tmp/prep/bash-environment-manager-classic-main/patterns/* .tmp/patterns"; \
 	fi
 
-psf: HOSTTYPE="host"
-psf: INTERNALUSER=$(SUDO_USER)
-psf: download_bash_environment_manager
+venv.python: HOSTTYPE="host"
+venv.python: INTERNALUSER=$(SUDO_USER)
+venv.python: download_bash_environment_manager
 	$(call kickoff)
 
-vagrant.psf: HOSTTYPE="vagrant"
-vagrant.psf: INTERNALUSER="vagrant"
-vagrant.psf: download_bash_environment_manager
+vm.venv.python: HOSTTYPE="vagrant"
+vm.venv.python: INTERNALUSER="vagrant"
+vm.venv.python: download_bash_environment_manager
 	@if test ! -f "Vagrantfile";then \
 		wget https://raw.githubusercontent.com/terminal-labs/bash-environment-manager-shelf/main/vagrantfiles/Vagrantfile; \
 		chown $(SUDO_USER) Vagrantfile; \
