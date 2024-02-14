@@ -23,12 +23,10 @@ download_bash_environment_manager:
 		sudo su -m $(SUDO_USER) -c "mkdir -p .tmp/prep"; \
 		sudo su -m $(SUDO_USER) -c "mkdir -p .tmp/bem"; \
 		sudo su -m $(SUDO_USER) -c "mkdir -p .tmp/patterns"; \
-  		sudo su -m $(SUDO_USER) -c "cd .tmp/prep; wget -O bash-environment-manager-library.zip https://github.com/tlbem/bash-environment-manager-library/archive/refs/heads/main.zip"; \
-  		sudo su -m $(SUDO_USER) -c "cd .tmp/prep; unzip -n bash-environment-manager-library.zip"; \
-  		sudo su -m $(SUDO_USER) -c "cp -r .tmp/prep/bash-environment-manager-library-main/* .tmp/bem"; \
-  		sudo su -m $(SUDO_USER) -c "cd .tmp/prep; wget -O bash-environment-manager-classic.zip https://github.com/tlbem/bash-environment-manager-classic/archive/refs/heads/main.zip"; \
-  		sudo su -m $(SUDO_USER) -c "cd .tmp/prep; unzip -n bash-environment-manager-classic.zip"; \
-  		sudo su -m $(SUDO_USER) -c "cp -r .tmp/prep/bash-environment-manager-classic-main/patterns/* .tmp/patterns"; \
+  		sudo su -m $(SUDO_USER) -c "cd .tmp/prep; wget -O bash-environment-manager-main.zip https://github.com/terminal-labs-bem/bash-environment-manager/archive/refs/heads/main.zip"; \
+  		sudo su -m $(SUDO_USER) -c "cd .tmp/prep; unzip -n bash-environment-manager-main.zip"; \
+  		sudo su -m $(SUDO_USER) -c "cp -r .tmp/prep/bash-environment-manager-main/* .tmp/bem"; \
+  		sudo su -m $(SUDO_USER) -c "cp -r .tmp/prep/bash-environment-manager-main/patterns/* .tmp/patterns"; \
 	fi
 
 venv.python: HOSTTYPE="host"
