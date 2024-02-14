@@ -1,14 +1,13 @@
-renamedirs = [ "[repo]/src/factory",]
+renamedirs = [ "[repo]/src/factorystandard",]
 editlines = [ 
-[ "[repo]/Makefile", "APPNAME=\"factory\"", "APPNAME=\"[newname]\"",],
-[ "[repo]/pyproject.toml", "name = \"factory\"", "name = \"[newname]\"",],
-[ "[repo]/pyproject.toml", "packages = [{include = \"factory\", from = \"src\"}]", "packages = [{include = \"[newname]\", from = \"src\"}]",],
+[ "[repo]/Makefile", "APPNAME=\"factorystandard\"", "APPNAME=\"[newname]\"",],
+[ "[repo]/pyproject.toml", "name = \"factorystandard\"", "name = \"[newname]\"",],
+[ "[repo]/pyproject.toml", "packages = [{include = \"factorystandard\", from = \"src\"}]", "packages = [{include = \"[newname]\", from = \"src\"}]",],
 ]
 inherited = [
-"Makefile",
 "LICENSE",
 "MANIFEST.in",
 ".gitignore",
-"src/factory/utils.py",
-"src/factory/settings.py",
+"src/factorystandard/utils.py",
+"src/factorystandard/settings.py",
 ]
