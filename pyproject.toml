@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "factorystandard"
+name = "factory"
 version = "0.0.1"
 description = ""
 authors = ["Michael Verhulst <michael@terminallabs.com>"]
 readme = "README.md"
-packages = [{include = "factorystandard", from = "src"}]
+packages = [{include = "factory", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -16,9 +16,10 @@ beautifulsoup4 = "^4.12.3"
 lxml = "^5.1.0"
 black = "^24.1.1"
 flake8 = "^7.0.0"
+lowkit = { git = "git@github.com:terminal-labs-bem/lowkit.git"}
 
 [tool.poetry.scripts]
-factorystandard = 'factorystandard.cli:cli'
+factory = 'factory.cli:cli'
 
 [build-system]
 requires = ["poetry-core"]
