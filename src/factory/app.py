@@ -1,11 +1,30 @@
+import os
 import urllib.request
 import zipfile
+import os
+import sys
+from os import listdir
+from os.path import isfile, join
+import importlib
+import importlib.util
+import os
+import shutil
+import urllib
+import subprocess
+from urllib.request import urlopen
+from os.path import isdir, dirname, realpath, abspath, join, exists
+from zipfile import ZipFile
+from configparser import ConfigParser
 
 import requests
 import bs4 as bs
 
 
 from . initialization.helpers import modify_repo
+
+def find_plugins(path):
+    onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
+    return onlyfiles
 
 def main():
     pass

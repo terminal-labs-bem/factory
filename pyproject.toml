@@ -19,7 +19,7 @@ flake8 = "^7.0.0"
 lowkit = { git = "git@github.com:terminal-labs-bem/lowkit.git"}
 
 [tool.poetry.scripts]
-factory = 'factory.cli:cli'
+factory = 'factory.ux.cli:cli'
 
 [build-system]
 requires = ["poetry-core"]

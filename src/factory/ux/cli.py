@@ -1,7 +1,7 @@
 import os
 
-from . import settings
-from . import app
+from .. import settings
+from .. import app
 
 import click
 
