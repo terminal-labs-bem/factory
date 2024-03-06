@@ -1,4 +1,4 @@
-APPNAME="factorystandard"
+APPNAME="factory"
 SUDOUSERNAME=$(SUDO_USER)
 CONFIGURATION="default"
 TYPE="python"
