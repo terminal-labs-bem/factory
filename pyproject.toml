@@ -17,6 +17,7 @@ lxml = "^5.1.0"
 black = "^24.1.1"
 flake8 = "^7.0.0"
 lowkit = { git = "git@github.com:terminal-labs-bem/lowkit.git"}
+highkit = { git = "git@github.com:terminal-labs-bem/highkit.git"}
 
 [tool.poetry.scripts]
 factory = 'factory.ux.cli:cli'
