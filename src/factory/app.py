@@ -60,7 +60,7 @@ def init_project(cwd, name):
     modify_repo(
         cwd + "/.tmp/storage/unzipped/" + project + "-main",
         project,
-        "lxc",
+        name,
     )
     from lowkit.utils import _copy_dir, _delete_dir
     _copy_dir(cwd + "/.tmp/storage/unzipped/" + project + "-main", name)
