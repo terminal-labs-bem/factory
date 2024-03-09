@@ -21,12 +21,14 @@ import bs4 as bs
 
 
 from . initialization.helpers import modify_repo
+from . initialization.workingset import setup_workingset
 
 def find_plugins(path):
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
     return onlyfiles
 
 def main():
+    setup_workingset()
     pass
 
 
@@ -45,28 +47,9 @@ def use_plugin():
     plugins.run({"cmd": command, "name": optsdict["destination"]})
 
 
-def list_projects():
-    html_url = "https://github.com/orgs/terminal-labs-bem/repositories"
-    response = requests.get(html_url).content
-    soup = bs.BeautifulSoup(response, "lxml")
 
-    repos = []
-    for tag in soup.find_all("a"):
-        if "nib_" in str(tag.attrs["href"]):
-            repos.append(tag.attrs["href"])
-    repos = sorted(repos)
-
-    repo_groups = []
-    for group in range(int(len(repos) / 3)):
-        repo_groups.append([repos.pop(0) for _ in range(3)])
-
-    repo_names = []
-    for repo_group in repo_groups:
-        repo_names.append(repo_group[0].split("/")[-1])
-    return repo_names
-
-
-def init_project(cwd, project, name):
+def init_project(cwd, name):
+    project = "template"
     urllib.request.urlretrieve(
         "https://github.com/terminal-labs-bem/" + project + "/archive/refs/heads/main.zip",
         ".tmp/storage/download/" + project + ".zip",
@@ -76,6 +59,9 @@ def init_project(cwd, project, name):
         zip_ref.extractall(".tmp/storage/unzipped")
     modify_repo(
         cwd + "/.tmp/storage/unzipped/" + project + "-main",
-        "simplenib",
+        project,
         "lxc",
     )
+    from lowkit.utils import _copy_dir, _delete_dir
+    _copy_dir(cwd + "/.tmp/storage/unzipped/" + project + "-main", name)
+    _delete_dir(cwd + "/.tmp/storage/unzipped/" + project + "-main")

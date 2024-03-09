@@ -44,19 +44,11 @@ def useplugin_command(plugin, command, data):
     app.use_plugin()
 
 
-@builtin_group.command("listprojects")
-def builtin_listprojects_cmd():
-    repo_names = app.list_projects()
-    for repo_name in repo_names:
-        print(repo_name)
-
-
-@click.option("-p", "--project", "project")
 @click.option("-n", "--name", "name")
 @builtin_group.command("initproject")
-def builtin_initproject_cmd(project, name):
+def builtin_initproject_cmd(name):
     cwd = os.getcwd()
-    app.init_project(cwd, project, name)
+    app.init_project(cwd, name)
 
 
 @click.option("-p", "--project", "project")

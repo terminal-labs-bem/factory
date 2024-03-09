@@ -13,7 +13,7 @@ from os.path import isdir, dirname, realpath, abspath, join, exists
 from zipfile import ZipFile
 from configparser import ConfigParser
 
-from lowkit.utils import _fast_scandir, _fast_scandfiles, _replace_many_lines
+from lowkit.utils import _fast_scandir, _fast_scandfiles, _replace_many_lines, _rename_dir
 
 def dl_zip(url, name, workingdir):
     if not exists(workingdir + name):
