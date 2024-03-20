@@ -20,8 +20,8 @@ import requests
 import bs4 as bs
 
 
-from . initialization.helpers import modify_repo
-from . initialization.workingset import setup_workingset
+from lowkit.initialization.helpers import modify_repo
+from lowkit.initialization.workingset import setup_workingset
 
 def find_plugins(path):
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
