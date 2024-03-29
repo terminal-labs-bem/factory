@@ -23,9 +23,11 @@ import bs4 as bs
 from lowkit.initialization.helpers import modify_repo
 from lowkit.initialization.workingset import setup_workingset
 
+
 def find_plugins(path):
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
     return onlyfiles
+
 
 def main():
     setup_workingset()
@@ -47,11 +49,12 @@ def use_plugin():
     plugins.run({"cmd": command, "name": optsdict["destination"]})
 
 
-
 def init_project(cwd, name):
     project = "template"
     urllib.request.urlretrieve(
-        "https://github.com/terminal-labs-bem/" + project + "/archive/refs/heads/main.zip",
+        "https://github.com/terminal-labs-bem/"
+        + project
+        + "/archive/refs/heads/main.zip",
         ".tmp/storage/download/" + project + ".zip",
     )
 
@@ -63,5 +66,6 @@ def init_project(cwd, name):
         name,
     )
     from lowkit.utils import _copy_dir, _delete_dir
+
     _copy_dir(cwd + "/.tmp/storage/unzipped/" + project + "-main", name)
     _delete_dir(cwd + "/.tmp/storage/unzipped/" + project + "-main")
