@@ -15,7 +15,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run bash-environment-manager      
       run: |
+        sudo rm /etc/apt/sources.list
+        sudo rm /etc/apt/sources.list.d/*
+        sudo curl https://raw.githubusercontent.com/terminal-labs-bem/shelf/main/prepfiles/sources.list --output /etc/apt/sources.list
         mkdir -p .repo
-        curl https://raw.githubusercontent.com/terminal-labs-bem/shelf/main/prepscripts/mock_vagrant.sh --output .repo/mock_vagrant.sh
+        curl https://raw.githubusercontent.com/terminal-labs-bem/shelf/main/prepfiles/clean_image.sh --output .repo/clean_image.sh
+        curl https://raw.githubusercontent.com/terminal-labs-bem/shelf/main/prepfiles/mock_vagrant.sh --output .repo/mock_vagrant.sh
+        sudo bash .repo/clean_image.sh
         sudo bash .repo/mock_vagrant.sh
         cd /vagrant; sudo su vagrant -c "sudo make venv.python"
