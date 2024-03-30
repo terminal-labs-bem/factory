@@ -51,11 +51,11 @@ def builtin_initproject_cmd(name):
     app.init_project(cwd, name)
 
 
-@click.option("-p", "--project", "project")
 @click.option("-n", "--name", "name")
 @builtin_group.command("updateproject")
-def builtin_updateproject_cmd(project, name):
-    print(name)
+def builtin_updateproject_cmd(name):
+    cwd = os.getcwd()
+    app.update_project(cwd, name)
 
 
 cli.add_command(builtin_group)

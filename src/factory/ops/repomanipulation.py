@@ -8,6 +8,7 @@ import os
 import shutil
 import urllib
 import subprocess
+from os import walk
 from urllib.request import urlopen
 from os.path import isdir, dirname, realpath, abspath, join, exists
 from zipfile import ZipFile
@@ -86,4 +87,12 @@ def new_repo_from_template(path, oldname, newname):
     for key in groups.keys():
         _replace_many_lines(key, groups[key])
 
+    os.chdir(last_cwd)
+
+def update_repo_from_template(path, oldname, newname):
+    ## process_new
+    ## process_inherited
+    ## process_semiinherited
+    last_cwd = os.getcwd()
+    os.chdir(path)
     os.chdir(last_cwd)
