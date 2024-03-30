@@ -19,10 +19,8 @@ from configparser import ConfigParser
 import requests
 import bs4 as bs
 
-
-from lowkit.initialization.helpers import modify_repo
 from lowkit.initialization.workingset import setup_workingset
-
+from factory.ops.repomanipulation import new_repo_from_template
 
 def find_plugins(path):
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
@@ -52,15 +50,15 @@ def use_plugin():
 def init_project(cwd, name):
     project = "template"
     urllib.request.urlretrieve(
-        "https://github.com/terminal-labs-bem/"
-        + project
-        + "/archive/refs/heads/main.zip",
-        ".tmp/storage/download/" + project + ".zip",
+    "https://github.com/terminal-labs-bem/"
+    + project
+    + "/archive/refs/heads/main.zip",
+    ".tmp/storage/download/" + project + ".zip",
     )
 
     with zipfile.ZipFile(".tmp/storage/download/" + project + ".zip", "r") as zip_ref:
         zip_ref.extractall(".tmp/storage/unzipped")
-    modify_repo(
+    new_repo_from_template(
         cwd + "/.tmp/storage/unzipped/" + project + "-main",
         project,
         name,
