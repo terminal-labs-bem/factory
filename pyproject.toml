@@ -19,6 +19,7 @@ flake8 = "^7.0.0"
 lowkit = { git = "https://github.com/terminal-labs-bem/lowkit.git"}
 highkit = { git = "https://github.com/terminal-labs-bem/highkit.git"}
 pytest = "^8.1.1"
+psutil = "^5.9.8"
 
 [tool.poetry.scripts]
 factory = 'factory.ux.cli:cli'

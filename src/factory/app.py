@@ -16,11 +16,11 @@ from os.path import isdir, dirname, realpath, abspath, join, exists
 from zipfile import ZipFile
 from configparser import ConfigParser
 
-import requests
-import bs4 as bs
+from lowkit.ops.filesystem import FileObject, contextmanager_cwd, fs
+from lowkit.utils import _copy_dir, _delete_dir
 
-from lowkit.initialization.workingset import setup_workingset
-from factory.ops.repomanipulation import new_repo_from_template, update_repo_from_template
+from factory.core import initapp
+from factory.ops.repomanipulation import new_repo_from_template, update_repo_from_template, get_repo_filepath_objs, copy_new_files
 
 def find_plugins(path):
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
@@ -28,8 +28,7 @@ def find_plugins(path):
 
 
 def main():
-    setup_workingset()
-    pass
+    initapp()
 
 
 def list_plugins():
@@ -63,20 +62,11 @@ def init_project(cwd, name):
         project,
         name,
     )
-    from lowkit.utils import _copy_dir, _delete_dir
 
     _copy_dir(cwd + "/.tmp/storage/unzipped/" + project + "-main", name)
     _delete_dir(cwd + "/.tmp/storage/unzipped/" + project + "-main")
 
 def update_project(cwd, name):
-    def getdirs(path):
-        complete_files = []
-        for root, dir_names, file_names in os.walk(path):
-            for f in file_names:
-                complete_files.append(os.path.join(root, f))
-        complete_files = sorted(complete_files)
-        return complete_files
-
     project = "template"
     urllib.request.urlretrieve(
     "https://github.com/terminal-labs-bem/"
@@ -85,19 +75,20 @@ def update_project(cwd, name):
     ".tmp/storage/download/" + project + ".zip",
     )
 
-    print(cwd + "/.tmp/storage/unzipped/" + project + "-main")
-    print(cwd + "/" + name)
-
     with zipfile.ZipFile(".tmp/storage/download/" + project + ".zip", "r") as zip_ref:
         zip_ref.extractall(".tmp/storage/unzipped")
-
-    path = cwd + "/.tmp/storage/unzipped/" + project + "-main"
-    path = cwd + "/" + name
-    #for f in getdirs(path):
-    #    print(f)
     
-    # update_repo_from_template(
-        # cwd + "/.tmp/storage/unzipped/" + project + "-main",
-        # project,
-        # name,
-    # )
+    templatepath = cwd + "/.tmp/storage/unzipped/" + project + "-main"
+    template_objects = get_repo_filepath_objs(templatepath)
+    template_repo_files = [f.pathfrom for f in template_objects]
+    normalized_template_repo_files = [f.replace("warehouse", "template") for f in template_repo_files]
+
+    projectpath = cwd + "/" + name
+    project_objects = get_repo_filepath_objs(projectpath)
+    project_repo_files = [f.pathfrom for f in project_objects]
+    normalized_project_repo_files = [f.replace("warehouse", "template") for f in project_repo_files]
+
+    copy_new_files(project, name, templatepath, projectpath, set(normalized_template_repo_files) - set(normalized_project_repo_files))
+    
+    ## inhabited
+    ## semiinhabited
