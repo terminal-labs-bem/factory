@@ -20,7 +20,7 @@ from lowkit.ops.filesystem import FileObject, contextmanager_cwd, fs
 from lowkit.utils import _copy_dir, _delete_dir
 
 from factory.core import initapp
-from factory.ops.repomanipulation import new_repo_from_template, update_repo_from_template, get_repo_filepath_objs, copy_new_files
+from factory.ops.repomanipulation import new_repo_from_template, update_repo_from_template, get_repo_filepath_objs, copy_new_files, get_rules, replace_term
 
 def find_plugins(path):
     onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
@@ -68,15 +68,15 @@ def init_project(cwd, name):
 
 def update_project(cwd, name):
     project = "template"
-    urllib.request.urlretrieve(
-    "https://github.com/terminal-labs-bem/"
-    + project
-    + "/archive/refs/heads/main.zip",
-    ".tmp/storage/download/" + project + ".zip",
-    )
+    # urllib.request.urlretrieve(
+    # "https://github.com/terminal-labs-bem/"
+    # + project
+    # + "/archive/refs/heads/main.zip",
+    # ".tmp/storage/download/" + project + ".zip",
+    # )
 
-    with zipfile.ZipFile(".tmp/storage/download/" + project + ".zip", "r") as zip_ref:
-        zip_ref.extractall(".tmp/storage/unzipped")
+    # with zipfile.ZipFile(".tmp/storage/download/" + project + ".zip", "r") as zip_ref:
+        # zip_ref.extractall(".tmp/storage/unzipped")
     
     templatepath = cwd + "/.tmp/storage/unzipped/" + project + "-main"
     template_objects = get_repo_filepath_objs(templatepath)
@@ -90,5 +90,22 @@ def update_project(cwd, name):
 
     copy_new_files(project, name, templatepath, projectpath, set(normalized_template_repo_files) - set(normalized_project_repo_files))
     
-    ## inhabited
-    ## semiinhabited
+    print("inherited files -- ###################")
+    rules = get_rules(projectpath)
+    inherited = rules["inherited"]
+    for i in inherited:
+        print("updating", i)
+        oldpath = templatepath + "/" + i
+        newpath = projectpath + "/" + i
+        os.makedirs(os.path.dirname(newpath), exist_ok=True)
+        shutil.copyfile(oldpath, newpath)
+        
+    print("semiinherited files -- ###############")
+    semiinherited = rules["semiinherited"]
+    for s in semiinherited:
+        print("updating", s)
+        oldpath = templatepath + "/" + s
+        newpath = projectpath + "/" + s
+        os.makedirs(os.path.dirname(newpath), exist_ok=True)
+        shutil.copyfile(oldpath, newpath)
+        replace_term(newpath, project, name)

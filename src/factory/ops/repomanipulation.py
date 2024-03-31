@@ -40,18 +40,23 @@ def get_repo_filepath_objs(path):
     template_files = fs.getdirs(path)
     template_files = [f for f in template_files if "/.git/" not in f]
     template_objects = [FileObject(f, path) for f in template_files]
-    
     return template_objects
+
+def get_rules(path):
+    last_cwd = os.getcwd()
+    os.chdir(path)
+    input_file_name = ".repo/rules.toml"
+    with open(input_file_name) as toml_file:
+        toml_dict = toml.load(toml_file)
+    rules = toml_dict
+    os.chdir(last_cwd)
+    return rules
 
 def new_repo_from_template(path, oldname, newname):
     last_cwd = os.getcwd()
     os.chdir(path)
 
-    input_file_name = ".repo/rules.toml"
-    with open(input_file_name) as toml_file:
-        toml_dict = toml.load(toml_file)
-
-    rules = toml_dict
+    rules = get_rules(path)
 
     renamedirs = rules["renamedirs"]
     editlines = rules["editlines"]
