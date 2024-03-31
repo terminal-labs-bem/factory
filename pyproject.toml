@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "factory"
-version = "0.0.1"
+version = "0.0.2"
 description = ""
 authors = ["Michael Verhulst <michael@terminallabs.com>"]
 readme = "README.md"
