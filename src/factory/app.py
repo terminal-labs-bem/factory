@@ -95,7 +95,7 @@ def update_project(cwd, name):
     inherited = rules["inherited"]
     for i in inherited:
         print("updating", i)
-        oldpath = templatepath + "/" + i
+        oldpath = templatepath + "/" + i.replace(name, project)
         newpath = projectpath + "/" + i
         os.makedirs(os.path.dirname(newpath), exist_ok=True)
         shutil.copyfile(oldpath, newpath)
