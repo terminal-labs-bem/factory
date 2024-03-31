@@ -40,7 +40,4 @@ vm.venv.python: download_bash_environment_manager
 		wget https://raw.githubusercontent.com/terminal-labs/bash-environment-manager-shelf/main/vagrantfiles/Vagrantfile; \
 		chown $(SUDO_USER) Vagrantfile; \
 	fi
-	$(call kickof https://raw.githubusercontent.com/terminal-labs/bash-environment-manager-shelf/main/vagrantfiles/Vagrantfile; \
-		chown $(SUDO_USER) Vagrantfile; \
-	fi
 	$(call kickoff)

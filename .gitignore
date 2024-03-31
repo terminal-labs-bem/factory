@@ -3,7 +3,6 @@ auth
 
 poetry.lock
 package-lock.json
-*__pycache__
 __pycache__
 env
 node_modules
@@ -15,5 +14,5 @@ node_modules
 tmp
 .tmp
 activate.sh
-*keys.sh
+keys.sh
 .Trash*

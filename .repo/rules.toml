@@ -1,13 +1,20 @@
-renamedirs = [ "[repo]/src/factorystandard",]
-editlines = [ 
-[ "[repo]/Makefile", "APPNAME=\"factorystandard\"", "APPNAME=\"[newname]\"",],
-[ "[repo]/pyproject.toml", "name = \"factorystandard\"", "name = \"[newname]\"",],
-[ "[repo]/pyproject.toml", "packages = [{include = \"factorystandard\", from = \"src\"}]", "packages = [{include = \"[newname]\", from = \"src\"}]",],
-]
+renamedirs = [ "[repo]/src/factory",]
+editlines = []
 inherited = [
+".github/workflows/build.yml",
+"src/factory/settings.py",
+"src/factory/config.py",
+"src/factory/utils.py",
+"src/factory/core.py",
 "LICENSE",
 "MANIFEST.in",
 ".gitignore",
-"src/factorystandard/utils.py",
-"src/factorystandard/settings.py",
+"poetry.toml",
+]
+semiinherited = [
+"Makefile",
+"pyproject.toml",
+"setup.cfg",
+"setup.py",
+"Taskfile.yml",
 ]
