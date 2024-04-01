@@ -17,30 +17,38 @@ from configparser import ConfigParser
 import toml
 
 from lowkit.ops.filesystem import FileObject, contextmanager_cwd, fs
-from lowkit.utils import _fast_scandir, _fast_scandfiles, _replace_many_lines, _rename_dir
+from lowkit.utils import (
+    _fast_scandir,
+    _fast_scandfiles,
+    _replace_many_lines,
+    _rename_dir,
+)
+
 
 def replace_term(filename, oldname, newname):
-    with open(filename, 'r') as file:
+    with open(filename, "r") as file:
         filedata = file.read()
     filedata = filedata.replace(oldname, newname)
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w') as file:
-        file.write(filedata) 
+    with open(filename, "w") as file:
+        file.write(filedata)
+
 
 def copy_new_files(oldname, newname, templatepath, projectpath, files):
     for f in files:
-        print("added", f.replace(oldname, newname))
         oldpath = templatepath + "/" + f
         newpath = projectpath + "/" + f.replace(oldname, newname)
         os.makedirs(os.path.dirname(newpath), exist_ok=True)
         shutil.copyfile(oldpath, newpath)
         replace_term(newpath, oldname, newname)
 
+
 def get_repo_filepath_objs(path):
     template_files = fs.getdirs(path)
     template_files = [f for f in template_files if "/.git/" not in f]
     template_objects = [FileObject(f, path) for f in template_files]
     return template_objects
+
 
 def get_rules(path):
     last_cwd = os.getcwd()
@@ -52,9 +60,11 @@ def get_rules(path):
     os.chdir(last_cwd)
     return rules
 
+
 def new_repo_from_template(path, oldname, newname):
     last_cwd = os.getcwd()
     os.chdir(path)
+    print(path)
 
     rules = get_rules(path)
 
@@ -63,9 +73,9 @@ def new_repo_from_template(path, oldname, newname):
     inherited = rules["inherited"]
     termsynced = rules["termsynced"]
 
-    replace_term('setup.cfg', oldname, newname)
-    replace_term('setup.py', oldname, newname)
-    replace_term('tests/test_cmd_info.py', oldname, newname)
+    replace_term("setup.cfg", oldname, newname)
+    replace_term("setup.py", oldname, newname)
+    replace_term("tests/test_cmd_info.py", oldname, newname)
 
     abs_renamedirs = []
     for renamedir in renamedirs:
@@ -111,6 +121,7 @@ def new_repo_from_template(path, oldname, newname):
         _replace_many_lines(key, groups[key])
 
     os.chdir(last_cwd)
+
 
 def update_repo_from_template(path, oldname, newname):
     ## process_new

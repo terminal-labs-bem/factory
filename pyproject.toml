@@ -16,6 +16,7 @@ flake8 = "^7.0.0"
 coverage = "^7.4.4"
 lowkit = {git = "https://github.com/terminal-labs-bem/lowkit.git"}
 highkit = {git = "https://github.com/terminal-labs-bem/highkit.git"}
+texttable = "^1.7.0"
 
 
 [tool.poetry.scripts]
